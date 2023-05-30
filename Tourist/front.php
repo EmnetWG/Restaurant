@@ -4,95 +4,123 @@ include('functions.php');
 $conn=mysqli_connect("localhost:3307", "root", "");
 mysqli_select_db($conn, "tourist");
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Front</title>
-<style>
-
-body{
-margin:0;
-padding:0;
-background-color:black;
-color:pink;
-}
-.nav {
-display:flex;
-justify-content:space-between;
-
-}
-.nav a {
-text-decoration:none;
-color:red;
-}
-ul {
-
-list-style-type:none;
-}
-li {
-float:left;
-padding:10px;
-}
-.button1{
-	padding:10px;
-	height:30px;
-	margin-right:10px;
-	
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
 </head>
 <body>
-<header>
-<div class="nav">
-<h1 class="port">Portfolio</h1>
-<ul>
-<li><a href='#'>Home</a></li>
-<li><a href='#'>About us</a></li>
-<?php if(isset($_SESSION['useremail'])) {
-echo '<li><a href="profile.php">My account</a></li>';
-
-}
-else
-{
-echo '<li><a href="signup.php.php">Register</a></li>';	
-}
-
+<?php
+include("header.php");
 ?>
+    <main>
+    <section class="hero">
+        <div class="container">
+        <h1>Food made with Love</h1>
+<button class="btn">Today's menu</button> 
+<button class="btn"><a href="signup.php"> Sign up</a></button>
+        </div>
+    </section>
+<section class="padding-block-900">
+    <div class="container">
+    
+          
+         <h6 class="text-align-center text-primary-400">Our Menu</h6>
+         <div class="flow">
+         <h2 class="fs-secondary-heading fw-bold text-align-center">Our Top Rated Dishes</h2>
+         <hr class="line">
+        </div>
+       
+        <?php
+      include("viewitems.php");
+      cart();
+        ?>
 
-<li><a href='#'>About us</a></li>
-<li><a href='#'>Contact</a></li>
-</ul>
-<h1><?php cart_quan() ?></h1>
-<h1><?php cart_price() ?></h1>
-<?php if(isset($_SESSION['useremail'])){
-echo'<p>Welcome '.$_SESSION['username'].'</p>';
- 
-echo'<button class="button1"><a href="logout.php">logout</a></button>';
-}
-else{
-echo'<button class="button1"><a href="login.php">login</a></button>';	
-}
-?>
-<button class="button1"><a href="cart.php">Cart</a></button>
+        
+    </div>
+
+</section>
+<section class="padding-block-900">
+<div class="container">
+    <div class="even-columns">
+        <div class="flow">
+<h1 class="fs-primary-heading fw-bold text-neutral-400">Our Awesome Restaurant</h1>
+<p class="text-neutral-300">When, while the lovely valley teems with vapour around me, and the meridian sun 
+    strikes the upper surface of the impenetrable foliage of my trees, and but a 
+    few stray gleams steal into the inner sanctuary, I throw myself down among the
+     tall grass by the trickling stream; and, as I lie close to the earth, a 
+     thousand unknown plants are noticed by me.</p>
+     <button class="btn">Read More</button>
+        </div>
+        <div >
+           
+           <img src="images/about-4.jpg" />
+        </div>
+    </div>
 </div>
-</header>
-<main>
-<div>
-<button class='button1'><a href="additem.php">Add Items</a></button>
-</div>
-<h1>Products</h1>
+</section>
+<section class="padding-block-900">
+        <div class="container bg-primary-100">
+          
+        <h6 class="text-align-center text-primary-400">Testimonial</h6>
+         <div class="flow">
+         <h2 class="fs-secondary-heading fw-bold text-align-center">Our Clients Say</h2>
+         <hr class="line">
+         </div>
+          <div class="even-columns">
+         
+<div class="testimonial">
+    <div class="testimonial-title">
+             <img src="images/testimonial-1.jpg" />
+             <div>
+             <h4 class="fs-700 fw-bold">Name</h4>
+             <p class="text-neutral-300">Profession</p>
+             </div>
+    </div>
+    <p class="text-neutral-300">When, while the lovely valley teems with vapour around me, and the meridian sun 
+    strikes the upper surface of the impenetrable foliage of my trees, and but a 
+    few stray gleams steal into the inner sanctuary</p>
 
-<?php 
+            </div>
+            <div class="testimonial">
+            <div class="testimonial-title">
+             <img src="images/testimonial-2.jpg" />
+             <div>
+             <h4 class="fs-700 fw-bold">Name</h4>
+             <p class="text-neutral-300">Profession</p>
+             </div>
+            </div>
+            <p class="text-neutral-300">When, while the lovely valley teems with vapour around me, and the meridian sun 
+    strikes the upper surface of the impenetrable foliage of my trees, and but a 
+    few stray gleams steal into the inner sanctuary</p>
 
-include("itemslist.php");
-//echo $product_list;	
+            </div>
+            <div class="testimonial">
+            <div class="testimonial-title">
+             <img src="images/testimonial-4.jpg" />
+             <div >
+             <h4 class="fs-700 fw-bold">Name</h4>
+             <p class="text-neutral-300">Profession</p>
+             </div>
+            </div>
+            <p class="text-neutral-300">When, while the lovely valley teems with vapour around me, and the meridian sun 
+    strikes the upper surface of the impenetrable foliage of my trees, and but a 
+    few stray gleams steal into the inner sanctuary</p>
 
-cart();
-
-
-
-?>
-
-</main>
+            </div>
+          </div>
+        </div>
+</section>
+    </main>
+    <?php
+include("footer.php");
+    ?>
+    
+   
+   <script src="main.js"></script> 
 </body>
 </html>
