@@ -3,6 +3,7 @@
 $conn=mysqli_connect("localhost:3307", "root", "");
 mysqli_select_db($conn, "tourist");
 
+include('functions.php');
 if(isset($_GET['orderid'])) { 
 	$oid=$_GET['orderid'];
 	$query="select * from `order_table` where `orderid`='$oid' "; 
@@ -30,7 +31,7 @@ $query_pay="insert into `payment` (`order_id`, `amount`, `payment_method`, `vouc
 $querysp=mysqli_query($conn, $query_pay);
 
 	if($querysp){
-     $query_update="update `order_table` set `status`='paid' where `orderid`='$oid'";
+     $query_update="update `order_table` set `payment_status`='Paid', `order_status`='Pending' where `orderid`='$oid'";
 	 $querysu=mysqli_query($conn, $query_update);
 	
 	  header('location:profile.php?orderdetails'); }
@@ -38,12 +39,79 @@ $querysp=mysqli_query($conn, $query_pay);
 
 }
 ?>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Confirm payment</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <title>Profile</title>
+    <style>
+
+.nav_secondary{
+	background-color:grey;
+    display:flex;
+	
+}
+.nav_secondary  li {
+list-style-type:none;
+padding:10px;
+
+}
+
+.nav_secondary ul li a
+{
+	text-decoration:none;
+	color:white;
+}
+
+
+.container-main{
+	display:grid;
+	gap:1em;
+}
+
+@media only screen and (min-width:600px) {
+
+.container-main{
+
+grid-template-columns:1fr;
+grid-template-rows:auto auto;
+
+}
+
+
+}
+</style>
+
+
 </head>
 <body>
-<div>
+<?php
+include("header.php");
+?>
+    <main>
+
+
+<div class="container-main">
+
+
+<div class="container-side">
+
+
+<ul class="nav_secondary">
+<li><a href='profile.php'>My Profile</a></li> 
+<li><a href='profile.php?orderdetails'> My orders</a></li>
+<li><a href='profile.php?editaccount'>Edit Account</a></li>  
+<li><a href='profile.php?deleteaccount'>Delete Account</a></li> 
+
+ 
+</ul>
+
+</div>
+<div class='container  padding-block-900'> 
+
 
 <table>
 <tr><td>
@@ -70,7 +138,7 @@ $querysp=mysqli_query($conn, $query_pay);
 <br><br></td></tr>
 <tr>
 <td><label></label></td>
-<td><input type="submit" name="submit" value="Pay"></td> 
+<td><input type="submit" name="submit" value="Pay" class="btn btn-inverted"></td> 
 </tr>
 </table>
 </form>
@@ -78,5 +146,11 @@ $querysp=mysqli_query($conn, $query_pay);
 </tr>
 </table>
 </div>
+</div>
+</main>
+<?php
+ include("footer.php") ;  
+ ?>  
+   <script src="main.js"></script> 
 </body>
 </html>
