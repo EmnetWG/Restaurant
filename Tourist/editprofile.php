@@ -1,14 +1,15 @@
 <?php
 $conn=mysqli_connect("localhost:3307", "root", "");
 mysqli_select_db($conn, "tourist");
-$passErr = $emailErr =$addressErr=$cityErr=$lastErr=$firstErr=$confErr=" ";
+$passErr = $emailErr =$addressErr=$cityErr=$lastErr=$firstErr=$confErr=$phoneErr=" ";
 
 if(isset($_SESSION['useremail'])) {
 	$useremail=$_SESSION['useremail'];
  $query_u="select * from `user` where `email`='$useremail'"; 
      $querys_u=mysqli_query($conn, $query_u);
 	 $row=mysqli_fetch_array( $querys_u, MYSQLI_ASSOC);
-	
+
+	$phone=$row['phone'];
 	 $first=$row['firstname'];
 $last=$row['lastname']; 
 $city=$row['city'];
@@ -48,6 +49,12 @@ if(isset($_POST['update'])) {
 	else{
 		$city=$_POST['city'];
 	}
+	if(empty($_POST['phone'])){
+		$phoneErr = "Phone Number is required";	
+	   }
+	   else{
+		 $phone=$_POST['phone'];
+	   }
 	
 	if(empty($_POST['password'])){
 	 $passErr = "Password is required";	
@@ -69,10 +76,12 @@ if(isset($_POST['update'])) {
 	 $first=stripslashes($first);
 	 $last=stripslashes($last);
 	 $city=stripslashes($city);
+	 $phone=stripslashes($phone);
 	 $address=stripslashes($address);
 	 $pass=stripslashes($pass);
 	 $confpass=stripslashes($confpass);
 	// $email=mysqli_real_escape_string($conn, $email);
+	$phone=mysqli_real_escape_string($conn, $phone);
 	 $first=mysqli_real_escape_string($conn, $first);
 	 $last=mysqli_real_escape_string($conn, $last);
 	 $pass=mysqli_real_escape_string($conn, $pass);
@@ -88,7 +97,7 @@ else
 {
 	
 	
-$queryi="update `user` set `firstname`='$first', `lastname`='$last', `city`='$city', `address`='$address', 
+$queryi="update `user` set `firstname`='$first', `lastname`='$last', `phone`='$phone',`city`='$city', `address`='$address', 
  `password`='$hashpassword', `type`='user' where `email`= '$useremail'"; 
 	$querysi=mysqli_query($conn, $queryi);
 	if($querysi){
@@ -101,11 +110,10 @@ mysqli_close($conn);
 }
 
 ?>
-<html>
-<head></head>
-<title>update account</title>
-<body>
-<div>
+<style>
+
+</style>
+<div class="form-details">
 
 <table>
 <tr><td>
@@ -120,6 +128,11 @@ mysqli_close($conn);
 <td><label>Last Name</label></td>
 <td>
 <input type="text" name="lastname" value="<?php echo $last ;?>"><span class="error">* <?php echo $lastErr;?></span>
+<br><br></td></tr>
+<tr>
+<td><label>Phone Number</label></td>
+<td>
+<input type="text" name="phone" value="<?php echo $phone ;?>" ><span class="error">* <?php echo $phoneErr;?></span>
 <br><br></td></tr>
 <tr>
 <td><label>City</label></td>
@@ -144,7 +157,8 @@ mysqli_close($conn);
 <input type="password" name="confirmpass"><span class="error">* <?php echo $confErr;?></span>
 <br><br></td></tr>
 <tr>
-<td><input type="submit" name="update" value="Update"></td>
+<td><label></label></td>
+<td><button type="submit" name="update"  class="btn">Update</button></td>
 
 </tr>
 </table>
@@ -153,6 +167,5 @@ mysqli_close($conn);
 </tr>
 </table>
 </div>
-</body>
-</html>
+
 
