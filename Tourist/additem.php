@@ -63,63 +63,24 @@ $querys=mysqli_query($conn, $query);
 	move_uploaded_file($_FILES['uploadf']['tmp_name'], $target_file);
 	//echo "Data inserted";
 	if($querys){
-	header('location:foodslist.php');}
+	header('location:admin.php');}
 	mysqli_close($conn);
 }
 ?>
-<html>
-<head>
-<title>Additem</title>
 <style>
-body{
-margin:0;
-padding:0;
-background-color:black;
-color:pink;
-}
-.nav {
-display:flex;
-justify-content:space-between;
 
-}
-.nav a {
-text-decoration:none;
-color:red;
-}
-ul {
 
-list-style-type:none;
-}
-li {
-float:left;
-}
 
-</style>
-</head>
-<body>
-<header>
-<div class="nav">
-<h1 class="port">Add Item</h1>
-<ul>
-<li><a href='#'>About us</a></li>
-<li><a href='#'>About us</a></li>
-<li><a href='#'>About us</a></li>
-<li><a href='#'>About us</a></li>
-<li><a href='#'>About us</a></li>
-<li><a href='#'>About us</a></li>
-</ul>
-<button class='button1'>search</button>
-</div>
-</header>
-<main>
-<div>
-<button class='button1'><a href="dash.php">Home</a></button>
+        
+	</style>
+<div  class="form-details">
+
 <table>
 <tr><td>
 <form action=" " method="POST" enctype="multipart/form-data">
-<table cellspacing=15>
+<table >
 <tr>
-<td><label>Food Items</label><br><br></td></tr>
+<td ><label>Food Items</label><br><br></td></tr>
 <tr>
 <td><label>Food Catagory</label></td>
 <td>
@@ -158,7 +119,7 @@ float:left;
 
 <tr>
 <td><label></label></td>
-<td><input type="submit" name="add" value="Add"></td>
+<td><button type="submit" name="add"  class="btn" >Add</button></td>
 </tr>
 </table>
 </form>
@@ -166,7 +127,3 @@ float:left;
 </tr>
 </table>
 </div>
-</main>
-</body>
-</html>	
-
