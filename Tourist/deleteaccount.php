@@ -15,15 +15,10 @@ mysqli_close($conn);
 	
 }
 ?>
-<html>
-<head>
-<title></title>
-</head>
-<body>
-<form method='POST'>
-<input action=" " type='submit' name='submit' value='Delete Account'>
-</form>
-<a href="profile.php">Cancel</a>
 
-</body>
-</html>
+<form method='POST' style="margin-bottom:2rem;">
+<input action=" " type='submit' name='submit' value='Delete Account' class="btn btn-inverted">
+</form>
+<a href="profile.php" class="btn">Cancel</a>
+
+
