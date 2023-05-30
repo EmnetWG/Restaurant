@@ -1,99 +1,147 @@
 <style>
-.displayContainer{
-	
-	
-display:flex;
-margin:auto;
-width:100%;
-flex-wrap:wrap;
-gap:1rem;
-
-}
-.displayList{
-	padding:10px ;
-	text-align:center;
-	width:200px;
-	box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2);
-	
-}
-.displayList input{
-	width:100%;
-	
-}
-.description{
-margin-top:0.5rem; 
-height:70px;
 
 
+th{
+	
+	background-color:#f2f2f2;
+	padding:1rem;
+	
 }
-.name{
-	margin-top:1rem;
-	height:50px;
+
+tr{
+  box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+  border-radius: 3px;
+    padding: 15px 20px;
 }
-#card-button{ 
-	border: none;
-  outline: 0;
+
+
+
+
+@media all and (max-width: 50em) {
+    
+    .cart-details{
+        margin: auto;
+      }
+    th {
+      display: none;
+    }
+    tr:first-of-type{
+      display: none;
+    }
+    
+    tr {
+      display: block;
+      
+    }
+    td {
+      
+      display: flex;
+      flex-basis: 100%;
+      padding: 1rem 0;
+    }
+      td:before {
+        color: #6C7A89;
+        padding-right: 10px;
+        content: attr(data-label);
+        flex-basis: 50%;
+        text-align: right;
+      }
+      
+    }
   
-  
- 
- 
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-}
 
-@media only screen and (min-width:600px) {
-
-.displayContainer{
-	width:75%;
-}
-}
 </style>
-<div class="displayContainer">
+
 <?php
-$conn=mysqli_connect("localhost:3307", "root", "");
-mysqli_select_db($conn, "tourist");
+
+
+
 $product_list="";
 
-$query="select * from food";
-$querys=mysqli_query($conn, $query);
+if(isset($_GET['food'])) {
+  $query="select * from food where catagory='food' ";
+  
+  }
+   elseif(isset($_GET['drink'])) {
+    $query="select * from food where catagory='drink' ";
+     
+  }
+  elseif(isset($_GET['dessert'])) {
+    $query="select * from food where catagory='dessert' ";
+    
+  }
+  elseif(isset($_GET['catagory'])) {
+    $query="select * from food";
+    
+  }
+  else {
+    $query="select * from food ";
+   	
+  }
+	$querys=mysqli_query($conn, $query);
 $product_count=mysqli_num_rows($querys);
 if($product_count>0)
 {
+	
+echo ' 
+<table class="cart-details text-align-center"><tr><th>Image</th><th>Name</th><th>Description</th><th>Catagory</th><th>Price</th><th>Update</th><th>Delete</th></tr>';
 while($row=mysqli_fetch_array($querys, MYSQLI_ASSOC)){
+	
 $id=$row["idfood"];
-$name=$row["item"];
-$description=$row["description"];
-$price=$row["price"];
-
-$productImage=$row["image"];
-$pros="uploads/".$productImage;
+//$quantity=$row["quantity"];
+ 
+//$query_food="select * from food";
+           // $queryf=mysqli_query($conn, $query_food);
+           //$rowp=mysqli_fetch_array($queryf, MYSQLI_ASSOC);
+		
+			$price=$row["price"];
+			//$id=$rowp["idfood"];
+            $description=$row["description"];
+            $name= $row["item"]; 
+            $catagory= $row["catagory"];   
+            $productImage=$row["image"];
+            $pros="uploads/".$productImage;
  
 
-echo "<div class='displayList'>
-<img src='$pros' width='160px' height='150px'> 
-<div class='name'>
-<h4>$name</h4>
-</div>
-<div class='description'>
-<p>$description</p>
-</div>
-<p>$ $price</p>  
-<!---<input type='number' name='update_quantity' min='1'  value='1'> --> 
-<div><button name='add_cart' type='button' class='btn bg-light'   id='card-button'><a href='front.php?cartid=$id'>Add to cart</a></button>
+            echo'
+			<tr><td data-label="Image"><img src="'.$pros.'" width="50" height="50"></td> 
+            <td data-label="Name">'.$name.'</td>
+			<td data-label="Description">'.$description.'</td>
+      <td data-label="Catagory">'.$catagory.'</td>
+            <td data-label="Price">'.$price.'</td>
+			
+			
+			
+            <td data-label="Update">
+            
+           <a style="color:var(--clr-accent-100); text-decoration:underline; " href="edititem.php?updateid='.$id.'">Update</a></td>
+           <td data-label="Delete">
+            <a style="color:var(--clr-primary-400);" href="delete.php?deleteid='.$id.'">Delete</a>
+            </td></tr>';
+			
+ 
+            
+    
 
-</div>
-
-</div> ";
-
-
-
+		}
+		
+echo '</table>';
 }
-}
+
+         
 else
 {
-$product_list="You have no products listed in your store yet";	
+	echo '<div style="margin-bottom:2rem;">';
+$product_list="You have no products listed  yet";
+echo'<p class="text-neutral-300">'; 
+echo $product_list;
+echo '</p></div>';
 }
 
+
+
+
 ?>
-</div>
+
+        
