@@ -112,7 +112,7 @@ include("header.php");
 </div>
 <div class='container  padding-block-900'> 
 
-
+<div class="form-details">
 <table>
 <tr><td>
 <form action=" " method="POST" enctype="multipart/form-data" autocomplete="off">
@@ -138,13 +138,14 @@ include("header.php");
 <br><br></td></tr>
 <tr>
 <td><label></label></td>
-<td><input type="submit" name="submit" value="Pay" class="btn btn-inverted"></td> 
+<td><button type="submit" name="submit"  class="btn btn-inverted">Pay</button></td> 
 </tr>
 </table>
 </form>
 </td>
 </tr>
 </table>
+</div>
 </div>
 </div>
 </main>
