@@ -1,6 +1,6 @@
 <?php
-
-session_start();
+include("session.php");
+//session_start();
 include('functions.php');
 $conn=mysqli_connect("localhost:3307", "root", "");
 mysqli_select_db($conn, "tourist");
@@ -56,20 +56,22 @@ mysqli_select_db($conn, "tourist");
            <li><a href="admin.php">Home</a></li>
            <li class="drop-btn"><a href="admin.php?catagory" >Catagory</a>
            <div class="catagory-list">
-            <a  href='admin.php?food'>Food</a>
-            <a href="admin.php?drink">Drink</a>
-            <a href="admin.php?desert">Desert</a>
+           
+            <?php
+            $query_catagory="select * from `catagory`";
+            $query_result=mysqli_query($conn, $query_catagory);
+             while($row=mysqli_fetch_array($query_result, MYSQLI_ASSOC)){
+              $id=$row["idcatagory"];
+              $type=$row["type"];
+              echo '<a  href="front.php?'.$type.'">'.$type.'</a>';
+             }
+            ?>
+           
+         
+            <a  href='admin.php?addcatagory'>Add Catagory</a>
+            
           </div></li>
-           <?php if(isset($_SESSION['useremail'])) {
-        echo '<li class="nav-item"><a class="nav-link" href="admin.php">My account</a></li>';
-
-}
-else
-{
-echo '<li class="nav-item"><a class="nav-link" href="adminsignup.php.php">Register</a></li>';	
-}
-
-?>
+           
            <li class="drop-btn"><a href="admin.php?order" >Orders</a>
            
            <div class="catagory-list">
@@ -78,7 +80,14 @@ echo '<li class="nav-item"><a class="nav-link" href="adminsignup.php.php">Regist
             <a href="admin.php?incomplete">Incomplete</a>
           </div></li>
            <li><a href="admin.php?additem">Add Item</a></li>
-           <li><a href="admin.php?users">Users</a></li>
+           
+           <li class="drop-btn"><a href="">Users</a>
+           <div class="catagory-list">
+           <a href="admin.php?users">List Users</a>
+           <a href="admin.php?adduser">Add User</a>
+</div>
+          </li>
+          <li><a href="admin.php?payment">Payment</a></li>
          </ul>
          <i class="fas fa-shopping-cart"></i><span class="navbar-text" id="cartqty"><?php cart_quan() ?></span> 
 <!---<span class="navbar-text"><?php cart_price() ?></span> -->
@@ -161,6 +170,24 @@ include("userslist.php");
 
 
 }
+elseif(isset($_GET['adduser'])) {
+    
+  include("adminsignup.php");
+  
+  
+  }
+  elseif(isset($_GET['addcatagory'])) {
+    
+    include("catagory.php");
+    
+    
+    }
+    elseif(isset($_GET['payment'])) {
+    
+      include("listpayment.php");
+      
+      
+      }
 else {
 ?>
 
