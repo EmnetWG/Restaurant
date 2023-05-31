@@ -49,7 +49,7 @@ if(isset($_SESSION['useremail'])) {
         margin: 1rem;
        
       } 
-      img {
+       .img-pay {
         margin-bottom:2rem; 
         border:1px solid var(--clr-accent-400);
       } 
@@ -66,7 +66,7 @@ include("header.php");
     
    
     
-   <a href='https://www.paypal.com' ><img  src='images/pay.png' ></a>  
+   <a href='https://www.paypal.com' ><img class="img-pay" src='images/pay.png' ></a>  
     
   <button type="button" class="btn btn-inverted" ><a style="color:var(--clr-primary-400);" href='order.php?userid=<?php echo $id;  ?>'>Payment Options</a></button>
    </div>
