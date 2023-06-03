@@ -49,7 +49,7 @@ if(isset($_SESSION['useremail'])) {
         margin: 1rem;
        
       } 
-       .img-pay {
+      .img-pay {
         margin-bottom:2rem; 
         border:1px solid var(--clr-accent-400);
       } 
