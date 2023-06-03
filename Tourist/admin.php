@@ -14,7 +14,8 @@ mysqli_select_db($conn, "tourist");
     <link rel="stylesheet" href="style.css" />
     <title>Dashboard</title>
     <style>
-        
+    
+     
 	@media  (min-width: 50em) {
 
 .info-card{
@@ -35,11 +36,13 @@ mysqli_select_db($conn, "tourist");
           padding: 1rem;
           width: 200px;
           height: 150px;
+          
         }
         .card-top{
           display: flex;
           justify-content: space-between;
           margin-bottom: 4rem;
+          
         }
         </style>
 </head>
@@ -63,7 +66,7 @@ mysqli_select_db($conn, "tourist");
              while($row=mysqli_fetch_array($query_result, MYSQLI_ASSOC)){
               $id=$row["idcatagory"];
               $type=$row["type"];
-              echo '<a  href="front.php?'.$type.'">'.$type.'</a>';
+              echo '<a  href="admin.php?'.$type.'">'.$type.'</a>';
              }
             ?>
            
@@ -188,6 +191,7 @@ elseif(isset($_GET['adduser'])) {
       
       
       }
+      
 else {
 ?>
 
